@@ -16,7 +16,8 @@ let decodedString = String(data: result, encoding: .utf8)
 ```
 
 > ⚠️ Be careful with force unwrapping, everything on this page provided just  as an example!
-
+  
+  
 #### Example of decoding torrent file
 ```swift
 import Bencode
@@ -35,20 +36,24 @@ do {
         print(announce)
     }
     
-} catch BencodeDecodeError.invalidFormat {}
+} catch BencodeDecodeError.invalidFormat {
+
+} catch {
+
+}
 ```
 
 ## Installation
-## Swift Package Manager
+### Swift Package Manager
 
 ```swift
 import PackageDescription
 
 let package = Package(
-    name: "YOUR_PROJECT_NAME",
-    targets: [],
+    <...>
     dependencies: [
         .Package(url: "https://github.com/VFK/SwiftyBencode.git", majorVersion: 0, minor: 1),
     ]
+    <...>
 )
 ```

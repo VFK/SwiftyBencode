@@ -1,6 +1,6 @@
 import Foundation
 
-enum BencodeDecodeError: Error {
+public enum BencodeDecodeError: Error {
     case invalidFormat
 }
 
