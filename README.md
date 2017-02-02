@@ -1,4 +1,4 @@
-# SwiftyBencode [![GitHub release](https://img.shields.io/github/release/VFK/SwiftyBencode.svg)]() [![Build Status](https://travis-ci.org/VFK/SwiftyBencode.svg?branch=master)](https://travis-ci.org/VFK/SwiftyBencode)
+# SwiftyBencode [![GitHub release](https://img.shields.io/github/release/VFK/SwiftyBencode.svg)](https://github.com/VFK/SwiftyBencode/releases) [![Build Status](https://travis-ci.org/VFK/SwiftyBencode.svg?branch=master)](https://travis-ci.org/VFK/SwiftyBencode)
 
 > A general purpose [bencode](https://en.wikipedia.org/wiki/Bencode) decoder written in Swift 3
 
