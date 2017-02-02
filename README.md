@@ -1,4 +1,4 @@
-# SwiftyBencode
+# SwiftyBencode [![GitHub release](https://img.shields.io/github/release/VFK/SwiftyBencode.svg)]() [![Build Status](https://travis-ci.org/VFK/SwiftyBencode.svg?branch=master)](https://travis-ci.org/VFK/SwiftyBencode)
 
 > A general purpose [bencode](https://en.wikipedia.org/wiki/Bencode) decoder written in Swift 3
 
@@ -8,16 +8,16 @@ Bencode.decode(data: Data) throws -> Any
 ```
 
 Strings returned as `Data` according to [bencode specification](https://wiki.theory.org/BitTorrentSpecification#Bencoding). 
-You need to explicitly convert it to String if this is what you expect:
+You need to explicitly convert them to `String` if this is what you expect:
 
 ```swift
 let result = try! Bencode.decode(data: bencodedData) as! Data
 let decodedString = String(data: result, encoding: .utf8)
 ```
-
 > ⚠️ Be careful with force unwrapping, everything on this page provided just  as an example!
-  
-  
+
+<br /><br />
+
 #### Example of decoding torrent file
 ```swift
 import Bencode
