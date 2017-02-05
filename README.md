@@ -12,7 +12,9 @@ BencodeResult.integer -> Int?
 BencodeResult.string -> String?
 BencodeResult.list -> [BencodeResult]?
 BencodeResult.dictionary -> [String: BencodeResult]?
-BencodeResult.hexString -> String? // hexadecimal representation of swift Data. Data(bytes: [0, 1, 127, 128, 255]) -> 00017f80ff
+
+// hexadecimal representation of swift Data.
+BencodeResult.hexString -> String? // Data(bytes: [0, 1, 127, 128, 255]) -> 00017f80ff
 ```
 
 ### Decoding torrent file
@@ -23,22 +25,22 @@ let url: URL = <path to torrent file>
 let data = try! Data(contentsOf: url!)
 
 do {
-let result = try Bencode.decode(data: data)
+  let result = try Bencode.decode(data: data)
 
-if let announce = result.dictionary?["announce"]?.string {
-print(announce)
-}
+  if let announce = result.dictionary?["announce"]?.string {
+    print(announce)
+  }
 
-if let announceList = result.dictionary?["announce"]?.list {
-// announceList is [BencodeResult]
-for item in announceList {
-print(item.string!)
-}
-}
+  if let announceList = result.dictionary?["announce"]?.list {
+    // announceList is [BencodeResult]
+    for item in announceList {
+      print(item.string!)
+    }
+  }
 
-if let creationDate = result.dictionary?["creation date"]?.integer {
-print(creationDate)
-}
+  if let creationDate = result.dictionary?["creation date"]?.integer {
+    print(creationDate)
+  }
 
 } catch BencodeDecodeError.invalidFormat {
 
@@ -54,10 +56,10 @@ print(creationDate)
 import PackageDescription
 
 let package = Package(
-<...>
-dependencies: [
-.Package(url: "https://github.com/VFK/SwiftyBencode.git", majorVersion: 0, minor: 2)
-]
-<...>
+  <...>
+  dependencies: [
+    .Package(url: "https://github.com/VFK/SwiftyBencode.git", majorVersion: 0, minor: 2)
+  ]
+  <...>
 )
 ```
