@@ -4,21 +4,18 @@
 
 ## Usage
 ```swift
-Bencode.decode(data: Data) throws -> Any
+Bencode.decode(data: Data) throws -> BencodeResult
 ```
-
-Strings returned as `Data` according to [bencode specification](https://wiki.theory.org/BitTorrentSpecification#Bencoding). 
-You need to explicitly convert them to `String` if this is what you expect:
-
+### BencodeResult
 ```swift
-let result = try! Bencode.decode(data: bencodedData) as! Data
-let decodedString = String(data: result, encoding: .utf8)
+BencodeResult.integer -> Int?
+BencodeResult.string -> String?
+BencodeResult.list -> [BencodeResult]?
+BencodeResult.dictionary -> [String: BencodeResult]?
+BencodeResult.hexString -> String? // hexadecimal representation of swift Data. Data(bytes: [0, 1, 127, 128, 255]) -> 00017f80ff
 ```
-> ⚠️ Be careful with force unwrapping, everything on this page provided just  as an example!
 
-<br /><br />
-
-#### Example of decoding torrent file
+### Decoding torrent file
 ```swift
 import Bencode
 
@@ -26,16 +23,23 @@ let url: URL = <path to torrent file>
 let data = try! Data(contentsOf: url!)
 
 do {
-    let result = try Bencode.decode(data: data) as! [String: Any]
-    
-    guard let announceData = result["announce"] as? Data else {
-        // Torrent file doesen't have "announce" field hence invalid.
-    }
-    
-    if let announce = String(data: announceData, encoding: .utf8) {
-        print(announce)
-    }
-    
+let result = try Bencode.decode(data: data)
+
+if let announce = result.dictionary?["announce"]?.string {
+print(announce)
+}
+
+if let announceList = result.dictionary?["announce"]?.list {
+// announceList is [BencodeResult]
+for item in announceList {
+print(item.string!)
+}
+}
+
+if let creationDate = result.dictionary?["creation date"]?.integer {
+print(creationDate)
+}
+
 } catch BencodeDecodeError.invalidFormat {
 
 } catch {
@@ -50,10 +54,10 @@ do {
 import PackageDescription
 
 let package = Package(
-    <...>
-    dependencies: [
-        .Package(url: "https://github.com/VFK/SwiftyBencode.git", majorVersion: 0, minor: 1),
-    ]
-    <...>
+<...>
+dependencies: [
+.Package(url: "https://github.com/VFK/SwiftyBencode.git", majorVersion: 0, minor: 2)
+]
+<...>
 )
 ```
